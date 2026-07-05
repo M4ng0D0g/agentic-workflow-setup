@@ -1,0 +1,25 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # 套組自檢：frontmatter 合規、SKILL.md ≤120 行、markdown 連結存在、MCP 範例一致
+      - run: node scripts/validate.mjs
+      # 安裝器端到端自測：dry-run → 實裝 → verify → 冪等重跑 → uninstall
+      - run: |
+          set -e
+          T=$(mktemp -d)
+          node setup.mjs --target "$T" --dry-run
+          node setup.mjs --target "$T" --verify
+          node setup.mjs --target "$T" | grep "複製 0 檔"   # 冪等：第二次必須零複製
+          node setup.mjs --target "$T" --uninstall
+          test ! -d "$T/.claude/skills/agent-entry"          # 確認已移除

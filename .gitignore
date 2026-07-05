@@ -1,0 +1,6 @@
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+mcp-memory.json
+.agentic-workflow.lock.json

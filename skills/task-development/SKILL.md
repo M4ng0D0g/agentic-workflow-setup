@@ -1,6 +1,9 @@
 ---
 name: task-development
 description: 開發類任務規範。實作功能、修 bug、重構、接 API 時載入。定義畫面/資料/網路分層架構、設計模式統一表、代碼紀律與完成定義。框架中立，適用任何技術棧。
+license: MIT
+metadata:
+  version: "0.2.0"
 ---
 
 # task-development（開發類任務）

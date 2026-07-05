@@ -1,6 +1,9 @@
 ---
 name: work-protocol
 description: 執行紀律與回報合約。接受任務說明後怎麼開工、卡住怎麼辦、怎樣算完成、回報只准長什麼樣。所有 worker 與 solo agent 必讀。
+license: MIT
+metadata:
+  version: "0.2.0"
 ---
 
 # work-protocol（執行・驗收・回報）

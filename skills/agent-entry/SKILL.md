@@ -1,6 +1,9 @@
 ---
 name: agent-entry
 description: 工作套組唯一入口。接到任何任務（規劃、寫代碼、研究、產出文件）時最先載入：判定你的角色與任務類型，路由到對應規範，並給出所有任務共用的硬規則。
+license: MIT
+metadata:
+  version: "0.2.0"
 ---
 
 # agent-entry（入口：角色判定 → 任務分型 → 硬規則）

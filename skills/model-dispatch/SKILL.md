@@ -1,6 +1,9 @@
 ---
 name: model-dispatch
 description: 指揮側調度規範。能派 subagent 的主模型載入：什麼該派、模型階梯與升降級、派工三件套、回報合約、驗證不自驗。單兵環境（無 subagent）只需讀「驗證不自驗」一節。
+license: MIT
+metadata:
+  version: "0.2.0"
 ---
 
 # model-dispatch（指揮官守則）

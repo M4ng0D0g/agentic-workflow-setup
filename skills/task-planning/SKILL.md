@@ -1,6 +1,9 @@
 ---
 name: task-planning
 description: 計畫類任務規範。規劃新功能/新系統、寫技術方案、拆解大任務時載入。定義計畫書結構、驗收條件寫法、風險與回退、人類核准閘門。
+license: MIT
+metadata:
+  version: "0.2.0"
 ---
 
 # task-planning（計畫類任務）

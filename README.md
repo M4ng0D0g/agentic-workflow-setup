@@ -13,25 +13,33 @@
 判準與正反例、產出自帶驗收標準、驗證永遠由 fresh context 執行。本套組就是那份被蒸餾出來的
 持久資產——低階模型不需要變聰明，只需要照著跑並誠實回報哪裡跑不通。
 
-## 安裝
+## 安裝（Node >=18，跨平台含 Windows）
 
-**Claude Code（專案級）**
 ```bash
-# 在你的專案根目錄
-cp -r <本repo>/skills/* .claude/skills/
-mkdir -p .claude/docs && cp <本repo>/templates/delegation-prompts.md .claude/docs/
-cp <本repo>/templates/CLAUDE.md.template ./CLAUDE.md   # 沒有 CLAUDE.md 時；已有則手動合併路由表
+# 在目標專案根目錄執行（或加 --target <路徑>）
+node <本repo路徑>/setup.mjs
 ```
 
-**Antigravity / Gemini**（技能格式與 Claude 同構：`<name>/SKILL.md` + frontmatter，
-見 [官方文件](https://antigravity.google/docs/skills)）
-```bash
-cp -r <本repo>/skills/* .agents/skills/
-cp <本repo>/templates/delegation-prompts.md .agents/
-cp <本repo>/templates/GEMINI.md.template ./GEMINI.md
-```
+安裝器行為：偵測 `.claude/`、`.agents/`、`.gemini/`（都沒有就預設建 claude+agents）→
+複製 skills 與派工模板 → 入口檔（CLAUDE/AGENTS/GEMINI.md）**不存在才**從模板建立 →
+MCP 配置**非破壞性合併**（只補缺的 server、自動填 `MEMORY_FILE_PATH`、Windows 自動包 `cmd /c`）→
+寫 lockfile（版本＋檔案 hash）。重跑冪等；本地改過的檔案升級時自動保留並警告。
 
-**MCP（可選，純語言場景補強）**：見 [mcp/MCP_SETUP.md](mcp/MCP_SETUP.md)。
+常用參數：`--dry-run`（只看計畫）、`--verify`（裝完自檢）、`--uninstall`（只移除未被本地修改的檔案）、
+`--platforms claude,agents,gemini`、`--force`（覆蓋本地修改）。
+
+手動安裝（不想跑腳本時）：`cp -r skills/* .claude/skills/`（或 `.agents/skills/`）＋
+複製 `templates/delegation-prompts.md` 與對應入口模板；MCP 見 [mcp/MCP_SETUP.md](mcp/MCP_SETUP.md)。
+
+### 平台矩陣
+
+| 平台 | Skills 路徑 | 入口檔 | MCP 配置 | 驗證狀態 |
+| --- | --- | --- | --- | --- |
+| Claude Code（專案） | `.claude/skills/` | `CLAUDE.md` | `.mcp.json` | ✅ 實測 |
+| Antigravity（workspace） | `.agents/skills/` | `AGENTS.md`/`GEMINI.md` | `.agents/mcp_config.json` | ✅ 官方文件＋外部實測 |
+| Codex CLI | `.agents/skills/`（與上共用，Codex 會沿目錄樹向上掃描） | `AGENTS.md` | `~/.codex/config.toml`（手動） | ⚠️ 外部回報，未自行實測 |
+| Gemini CLI | 同 `.agents/skills/` 內容可手動複製 | `GEMINI.md` | `.gemini/settings.json` | ✅ 配置格式實測 |
+| Copilot / Cursor | 未支援 | — | — | ❌ 未驗證 |
 
 ## 內容地圖
 

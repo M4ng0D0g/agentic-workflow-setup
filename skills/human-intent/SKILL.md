@@ -1,6 +1,9 @@
 ---
 name: human-intent
 description: 人類語意理解與提問紀律。需求模糊、有多種解讀、或不確定該不該打斷人類時載入。含提問判準、批次提問格式、歧義偵測清單，以及給人類看的工作規範。
+license: MIT
+metadata:
+  version: "0.2.0"
 ---
 
 # human-intent（把人類的話變成可執行的規格）
