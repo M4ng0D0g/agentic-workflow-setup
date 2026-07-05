@@ -14,7 +14,7 @@
 //            hash 不符（專案本地改過）→ 保留並列警告，由人裁決。
 //   uninstall 只刪「hash 仍與 lockfile 一致」的檔案；改過的保留；入口檔與 MCP 合併不動（列出提醒）。
 //   verify   對已安裝的 skills 跑 frontmatter/行數/連結檢查（同 scripts/validate.mjs 規則）。
-import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, rmSync, copyFileSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, rmSync, rmdirSync, copyFileSync } from "node:fs";
 import { join, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
@@ -70,11 +70,19 @@ if (flag("uninstall")) {
   if (!existsSync(LOCK)) { console.error("找不到 lockfile，無法安全移除。"); process.exit(1); }
   const lock = JSON.parse(readFileSync(LOCK, "utf8"));
   let removed = 0, kept = 0;
+  const touchedDirs = new Set();
   for (const [rel, hash] of Object.entries(lock.files)) {
     const p = join(TARGET, rel);
     if (!existsSync(p)) continue;
-    if (sha(p) === hash) { if (!DRY) rmSync(p); removed++; }
-    else { console.warn(`保留（本地已修改）：${rel}`); kept++; }
+    if (sha(p) === hash) {
+      if (!DRY) rmSync(p);
+      removed++;
+      for (let d = dirname(p); d.length > TARGET.length; d = dirname(d)) touchedDirs.add(d);
+    } else { console.warn(`保留（本地已修改）：${rel}`); kept++; }
+  }
+  // 清掉因移除而空掉的目錄（由深到淺）；rmdirSync 只刪空目錄，非空會拋錯（此處為預期防護）
+  if (!DRY) for (const d of [...touchedDirs].sort((a, b) => b.length - a.length)) {
+    if (existsSync(d) && readdirSync(d).length === 0) rmdirSync(d);
   }
   if (!DRY) rmSync(LOCK);
   log(`移除 ${removed} 檔，保留 ${kept} 檔（本地修改）。入口檔與 MCP 合併項未動，需要時手動清理。`);
