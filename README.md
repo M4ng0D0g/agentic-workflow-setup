@@ -5,7 +5,7 @@
 懂得問人、照統一架構做事**。
 
 主要目標平台：**Claude Code**。次要：**Antigravity / Gemini CLI**（技能格式同構，皆為
-`<skill-name>/SKILL.md` + YAML frontmatter）。
+`<skill-name>/SKILL.md` + YAML frontmatter；Antigravity 佐證見其[官方 skills 文件](https://antigravity.google/docs/skills)，2026-07 查證）。
 
 ## 設計哲學（一段講完）
 
@@ -19,12 +19,15 @@
 ```bash
 # 在你的專案根目錄
 cp -r <本repo>/skills/* .claude/skills/
+mkdir -p .claude/docs && cp <本repo>/templates/delegation-prompts.md .claude/docs/
 cp <本repo>/templates/CLAUDE.md.template ./CLAUDE.md   # 沒有 CLAUDE.md 時；已有則手動合併路由表
 ```
 
-**Antigravity / Gemini**
+**Antigravity / Gemini**（技能格式與 Claude 同構：`<name>/SKILL.md` + frontmatter，
+見 [官方文件](https://antigravity.google/docs/skills)）
 ```bash
 cp -r <本repo>/skills/* .agents/skills/
+cp <本repo>/templates/delegation-prompts.md .agents/
 cp <本repo>/templates/GEMINI.md.template ./GEMINI.md
 ```
 
@@ -45,7 +48,10 @@ cp <本repo>/templates/GEMINI.md.template ./GEMINI.md
 | `mcp/` | 三平台 MCP 配置範例與教程（Windows 陷阱含 `cmd /c`） | 裝機時 |
 | `docs/maintenance.md` | 制度維護協議：誰能改什麼、教訓寫回哪、膨脹上限 | 想改規則的 agent |
 
-## 三條不可簡化的底線（其餘都可因地制宜）
+## 三條不可簡化的底線
+
+完整硬規則是 `agent-entry` 的六條（它們是這三條的執行細則，客製專案時可調整措辭與門檻）；
+但以下三條在任何客製下都不可刪、不可弱化：
 
 1. **完成＝證據**：能貼出測試輸出原文/exit code/來源引用才叫完成，「應該可以」不是完成。
 2. **驗證不自驗**：驗收由 fresh-context agent 做，prompt 不夾帶實作者結論，問「找出問題」不問「確認沒問題」。

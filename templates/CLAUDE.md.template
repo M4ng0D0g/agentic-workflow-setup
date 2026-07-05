@@ -6,7 +6,7 @@
 
 1. 使用者當下的明確指示
 2. 本檔案（CLAUDE.md）
-3. `.claude/skills/` 各 SKILL.md（本套組技能間衝突時，以 `agent-entry` 的定義為準）
+3. `.claude/skills/` 各 SKILL.md（技能間衝突時，依 `agent-entry` 的「規則衝突裁決」節處理；裁決不了就批次問人類）
 
 ## Session 啟動程序
 
@@ -31,7 +31,7 @@
 | 規劃新功能 | `task-planning` skill |
 | 寫代碼 / 修 bug | `task-development` skill |
 | 寫文件 / 發版本 / 交付 | `task-delivery` skill |
-| 派 subagent | `model-dispatch` skill + templates/delegation-prompts.md |
+| 派 subagent | `model-dispatch` skill + `.claude/docs/delegation-prompts.md` |
 | 建置測試指令、環境陷阱 | <docs/environment.md ——首次探勘後把事實沉澱到這裡> |
 
 ## 環境事實

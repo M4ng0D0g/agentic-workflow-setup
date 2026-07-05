@@ -1,8 +1,7 @@
 # MCP 配置指南（純語言場景補強）
 
 三個免 API key、npx 可跑的 server，補低階模型在研究/規劃/純文字任務的短板。
-套件存在性於 2026-07 以 `npm view` 查證（server-memory 2026.1.26 / server-sequential-thinking
-2025.12.18 / context7 3.2.2）。
+三個套件名皆於 2026-07-05 以 `npm view` 實測存在；版本滾動更新，此處不記快照號。
 
 ## 需求 → server 對照
 
@@ -14,14 +13,14 @@
 
 刻意不含：網頁搜尋/抓取與檔案存取（主流 agent CLI 都內建）、需 API key 的服務。
 
-## 各平台配置位置（內容同一份，見 mcp-config.example.json）
+## 各平台配置位置（內容同一份；POSIX 見 mcp-config.example.json，Windows 見 mcp-config.windows.example.json——差別只在 `cmd /c` 包裝）
 
 | 平台 | 位置 |
 | --- | --- |
 | Claude Code（專案共用） | `<專案>/.mcp.json` |
 | Gemini CLI | `<專案>/.gemini/settings.json` |
-| Antigravity（workspace） | `<專案>/.agents/mcp_config.json`；GUI：agent 面板「…」→ Manage MCP Servers → View raw config |
-| Antigravity（全域） | `~/.gemini/config/mcp_config.json` |
+| Antigravity（workspace） | `<專案>/.agents/mcp_config.json`；GUI：agent 面板「…」→ Manage MCP Servers → View raw config（來源：[官方 MCP 文件](https://antigravity.google/docs/mcp)，2026-07 查證） |
+| Antigravity（全域） | `~/.gemini/config/mcp_config.json`（來源同上） |
 
 **同一專案配多平台時，各份內容保持一致；memory 的 `MEMORY_FILE_PATH` 指到同一個檔**，
 三邊 agent 就共用同一份記憶。

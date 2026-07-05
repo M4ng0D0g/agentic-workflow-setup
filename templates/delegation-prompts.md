@@ -6,7 +6,8 @@
 
 ```text
 環境注意：〔OS、工具路徑陷阱——從專案環境文件抄〕。
-規範：先讀 〔.agents/skills 或 .claude/skills〕/work-protocol/SKILL.md 並遵守其回報合約。
+規範：先讀 〔.agents/skills 或 .claude/skills〕/work-protocol/SKILL.md 並遵守其執行紀律；
+回報格式以本派工單的【回報】段為準（它是回報合約的任務特化版，此覆寫是合約明文允許的）。
 大檔先搜尋定位再分段讀；查不到的事實標「未查證」。
 ```
 
