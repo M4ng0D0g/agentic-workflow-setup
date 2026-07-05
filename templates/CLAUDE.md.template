@@ -1,0 +1,39 @@
+# <專案名> — Agent 作業入口
+
+<一句話：這專案是什麼、主要技術棧、程式碼放哪幾個目錄。>
+
+## 規則優先序（衝突時依此裁決）
+
+1. 使用者當下的明確指示
+2. 本檔案（CLAUDE.md）
+3. `.claude/skills/` 各 SKILL.md（本套組技能間衝突時，以 `agent-entry` 的定義為準）
+
+## Session 啟動程序
+
+1. 讀 `agent-entry` skill：判定角色與任務類型，載入對應規範。
+2. <專案任務來源，例：讀 docs/plan/ 的待實作區確認當前任務。>
+3. <開工前檢查，例：查問題日誌有無未解決的阻斷項。>
+
+## 硬規則（無例外）
+
+- 完成＝證據（測試輸出原文、exit code）；「應該可以」不是完成。
+- 同一錯誤最多修兩次，第三次帶完整失敗軌跡回報或升級（model-dispatch）。
+- 大檔案先 grep 定位再分段讀，禁止整檔讀入主對話：<列出本專案的大檔，例：logs/、TRACKING.md>
+- 查不到的事實標「未查證」，嚴禁編造。
+- <專案特有硬規則，例：保護分支清單、凍結代碼標記規則。>
+
+## 任務路由表
+
+| 你正在做的事 | 讀這份 |
+| --- | --- |
+| 不確定從哪開始 | `agent-entry` skill |
+| 需求模糊 / 要問人類 | `human-intent` skill |
+| 規劃新功能 | `task-planning` skill |
+| 寫代碼 / 修 bug | `task-development` skill |
+| 寫文件 / 發版本 / 交付 | `task-delivery` skill |
+| 派 subagent | `model-dispatch` skill + templates/delegation-prompts.md |
+| 建置測試指令、環境陷阱 | <docs/environment.md ——首次探勘後把事實沉澱到這裡> |
+
+## 環境事實
+
+<首次 session 實測後填入：OS、工具路徑、建置/測試指令、已知陷阱。之後只增不猜。>
