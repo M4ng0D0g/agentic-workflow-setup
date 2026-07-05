@@ -16,7 +16,10 @@
 ## 安裝（Node >=18，跨平台含 Windows）
 
 ```bash
-# 在目標專案根目錄執行（或加 --target <路徑>）
+# 一行安裝：在目標專案根目錄執行（免 clone；實測 2026-07-06）
+npx --yes github:M4ng0D0g/agentic-workflow-setup
+
+# 或 clone 後執行（可加 --target <路徑>）
 node <本repo路徑>/setup.mjs
 ```
 
