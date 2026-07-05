@@ -1,6 +1,6 @@
 {
   "name": "agentic-workflow-setup",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Portable agentic workflow kit: entry skills, anti-hallucination discipline, task-type protocols, model dispatch rules, and MCP setup for Claude Code / Antigravity / Codex / Gemini",
   "type": "module",
   "bin": {

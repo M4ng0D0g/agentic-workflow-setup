@@ -2,6 +2,12 @@
 
 本套組遵循 [SemVer](https://semver.org/lang/zh-TW/)。每節寫「對使用者的影響」，不是 commit 清單。
 
+## [0.2.1] - 2026-07-06
+
+### Fixed
+- `setup.mjs --uninstall` 現在會清除因移除而空掉的目錄（CI 端到端測試抓到的漏洞；
+  根因是 rmSync 對目錄拋錯被空 catch 吞掉——已改為 rmdirSync + 顯式空目錄檢查）。
+
 ## [0.2.0] - 2026-07-06
 
 ### Added
